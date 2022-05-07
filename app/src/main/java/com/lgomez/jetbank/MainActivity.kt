@@ -46,39 +46,48 @@ private fun LoginForm() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically)
         ) {
-            UserField()
-            PasswordField()
-            LoginButton()
+            var user by remember { mutableStateOf("") }
+            var pass by remember { mutableStateOf("") }
+            val buttonEnabled = user.isNotEmpty() && pass.isNotEmpty()
+
+            UserField(value = user, onValueChange = { user = it })
+            PasswordField(value = pass, onValueChange = { pass = it })
+            LoginButton(buttonEnabled)
         }
     }
 }
 
 @Composable
-private fun UserField() {
-    var user by remember { mutableStateOf("") }
-
+private fun UserField(
+    value: String,
+    onValueChange: (String) -> Unit,
+) {
     OutlinedTextField(
-        value = user,
-        onValueChange = { user = it },
+        value = value,
+        onValueChange = onValueChange,
         label = { Text(text = "User") }
     )
 }
 
 @Composable
-private fun PasswordField() {
-    var pass by remember { mutableStateOf("")}
+private fun PasswordField(
+    value: String,
+    onValueChange: (String) -> Unit,
+) {
     OutlinedTextField(
-        value = pass,
-        onValueChange = { pass = it },
+        value = value,
+        onValueChange = onValueChange,
         label = { Text(text = "Password") }
     )
 }
 
 @Composable
-private fun LoginButton() {
-    Button(onClick = { /*TODO*/ }) {
+private fun LoginButton(enabled: Boolean) {
+    Button(
+        onClick = { /*TODO*/ },
+        enabled = enabled,
+    ) {
         Text(text = "Login")
         Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null)
-
     }
 }
