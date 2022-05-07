@@ -42,14 +42,10 @@ fun Screen(content: @Composable () -> Unit) {
 @Composable
 private fun LoginForm() {
     Screen {
-        //Box, como el frame layout- usa el surface
-        //Column: linear layout vertical
-        //Row: linear layout horizontal
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically)
         ) {
-            //concepto Slot API (API basada en huecos)
             UserField()
             PasswordField()
             LoginButton()
@@ -59,10 +55,6 @@ private fun LoginForm() {
 
 @Composable
 private fun UserField() {
-    //Jetpack compose funciona con un sistema llamado recomposición (el código se va a re ejecutar)
-    //Para poder mantener el estado hay que usar una mutableStateOf()
-    //by: delegado, podemos estar cambiando el estado sin tener que usar el .value
-    //directamente pasamos valor a la propiedad y automáticamente lo guarda en el .value del state
     var user by remember { mutableStateOf("") }
 
     OutlinedTextField(
@@ -71,11 +63,6 @@ private fun UserField() {
         label = { Text(text = "User") }
     )
 }
-
-
-//state hosting: o elevación de estado
-//el componente era state less porque gestionaba su propio estado
-//ahora le pedimos que delegue su estado en el componente superior
 
 @Composable
 private fun PasswordField() {
@@ -90,7 +77,6 @@ private fun PasswordField() {
 @Composable
 private fun LoginButton() {
     Button(onClick = { /*TODO*/ }) {
-        //el button nos está dando un RowScope, por lo que los pone en una fila
         Text(text = "Login")
         Icon(imageVector = Icons.Default.AccountCircle, contentDescription = null)
 
