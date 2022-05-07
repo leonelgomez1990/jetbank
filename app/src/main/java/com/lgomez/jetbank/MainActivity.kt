@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
@@ -18,17 +19,46 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.lgomez.jetbank.ui.theme.JetbankTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            LoginForm()
+            val navController = rememberNavController()
+            NavHost(navController = navController, startDestination = "login") {
+                composable("login") {
+                    LoginForm(onLogin = {
+                        navController.navigate("main")
+                    })
+                }
+                composable("main") {
+                    Main()
+                }
+            }
+
         }
     }
 
 }
+
+@Composable
+fun Main() {
+    Screen {
+        Box(
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "Main Screen",
+                style = MaterialTheme.typography.h5
+            )
+        }
+    }
+}
+
 
 @Composable
 fun Screen(content: @Composable () -> Unit) {
@@ -42,9 +72,8 @@ fun Screen(content: @Composable () -> Unit) {
     }
 }
 
-@Preview
 @Composable
-private fun LoginForm() {
+private fun LoginForm(onLogin: () -> Unit) {
     Screen {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -56,7 +85,7 @@ private fun LoginForm() {
 
             UserField(value = user, onValueChange = { user = it })
             PasswordField(value = pass, onValueChange = { pass = it })
-            LoginButton(buttonEnabled)
+            LoginButton(buttonEnabled, onLogin)
         }
     }
 }
@@ -99,9 +128,9 @@ private fun PasswordField(
 }
 
 @Composable
-private fun LoginButton(enabled: Boolean) {
+private fun LoginButton(enabled: Boolean, onLogin: () -> Unit) {
     Button(
-        onClick = { /*TODO*/ },
+        onClick = onLogin,
         enabled = enabled,
     ) {
         Text(text = "Login")
