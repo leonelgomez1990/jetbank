@@ -1,6 +1,7 @@
 package com.lgomez.jetbank.ui.screens
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Surface
@@ -16,6 +17,7 @@ import com.lgomez.jetbank.ui.configuration.Screen
 import com.lgomez.jetbank.ui.theme.JetbankTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.foundation.lazy.items
 
 @Composable
 fun Main() {
@@ -51,9 +53,9 @@ fun MyApp() {
 }
 
 @Composable
-fun Greetings(names: List<String> = listOf("World", "Compose")) {
-    Column(modifier = Modifier.padding(vertical = 4.dp)) {
-        for (name in names) {
+fun Greetings(names: List<String> = List(1000) { "$it" }) {
+    LazyColumn(modifier = Modifier.padding(vertical = 4.dp)) {
+        items(items = names) { name ->
             Greeting(name = name)
         }
     }
