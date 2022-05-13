@@ -9,9 +9,11 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import com.lgomez.jetbank.R
 import com.lgomez.jetbank.ui.configuration.Screen
 
 @Composable
@@ -23,29 +25,29 @@ fun LoginForm(onLogin: () -> Unit) {
         ) {
             var user by remember { mutableStateOf("") }
             var pass by remember { mutableStateOf("") }
-            val buttonEnabled = user.isNotEmpty() && pass.isNotEmpty()
+            val loginEnabled = user.isNotEmpty() && pass.isNotEmpty()
 
-            UserField(value = user, onValueChange = { user = it })
-            PasswordField(value = pass, onValueChange = { pass = it })
-            LoginButton(buttonEnabled, onLogin)
+            UserTextField(value = user, onValueChange = { user = it })
+            PasswordTextField(value = pass, onValueChange = { pass = it })
+            LoginButton(loginEnabled, onLogin)
         }
     }
 }
 
 @Composable
-private fun UserField(
+private fun UserTextField(
     value: String,
     onValueChange: (String) -> Unit,
 ) {
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
-        label = { Text(text = "User") }
+        label = { Text(text = stringResource(id = R.string.log_in_user)) }
     )
 }
 
 @Composable
-private fun PasswordField(
+private fun PasswordTextField(
     value: String,
     onValueChange: (String) -> Unit,
 ) {
@@ -53,7 +55,7 @@ private fun PasswordField(
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
-        label = { Text(text = "Password") },
+        label = { Text(text = stringResource(id = R.string.log_in_password)) },
         visualTransformation = if (passVisible) VisualTransformation.None else PasswordVisualTransformation(),
         trailingIcon = {
             IconToggleButton(
