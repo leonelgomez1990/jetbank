@@ -22,10 +22,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.text.font.FontWeight
+import com.lgomez.jetbank.ui.configuration.BlueScreen
+import com.lgomez.jetbank.ui.theme.BlueTheme
 
 @Composable
 fun Main() {
-    Screen {
+    BlueScreen {
         MyApp()
         /*
         Box(
@@ -43,7 +46,7 @@ fun Main() {
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun DefaultPreview() {
-    JetbankTheme {
+    BlueTheme {
         MyApp()
     }
 }
@@ -91,7 +94,11 @@ private fun Greeting(name: String) {
                     .padding(bottom = extraPadding.coerceAtLeast(0.dp))
             ) {
                 Text(text = "Hello, ")
-                Text(text = name)
+                Text(
+                    text = name, style = MaterialTheme.typography.h4.copy(
+                        fontWeight = FontWeight.ExtraBold
+                    )
+                )
             }
             OutlinedButton(
                 onClick = { expanded = !expanded },
