@@ -14,6 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.lgomez.jetbank.ui.configuration.Screen
 import com.lgomez.jetbank.ui.theme.JetbankTheme
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 
 @Composable
 fun Main() {
@@ -39,7 +41,17 @@ fun DefaultPreview() {
 
 
 @Composable
-fun MyApp(names: List<String> = listOf("World", "Compose")) {
+fun MyApp() {
+    var shouldShowOnBoarding by remember { mutableStateOf(true) }
+    if (shouldShowOnBoarding) {
+        OnBoardingScreen(onContinueClicked = { shouldShowOnBoarding = false })
+    } else {
+        Greetings()
+    }
+}
+
+@Composable
+fun Greetings(names: List<String> = listOf("World", "Compose")) {
     Column(modifier = Modifier.padding(vertical = 4.dp)) {
         for (name in names) {
             Greeting(name = name)
@@ -50,12 +62,19 @@ fun MyApp(names: List<String> = listOf("World", "Compose")) {
 @Composable
 private fun Greeting(name: String) {
     val expanded = remember { mutableStateOf(false)}
+
+    val extraPadding = if (expanded.value) 48.dp else 0.dp
+
     Surface(
         color = MaterialTheme.colors.primary,
         modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
     ) {
         Row(modifier = Modifier.padding(24.dp)) {
-            Column(modifier = Modifier.weight(1f)) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(bottom = extraPadding)
+            ) {
                 Text(text = "Hello, ")
                 Text(text = name)
             }
