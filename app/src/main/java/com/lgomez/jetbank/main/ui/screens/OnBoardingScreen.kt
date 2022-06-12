@@ -1,4 +1,4 @@
-package com.lgomez.jetbank.ui.screens
+package com.lgomez.jetbank.main.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.lgomez.jetbank.ui.theme.JetbankTheme
+import com.lgomez.jetbank.core.ui.compose.DefaultScreen
 
 @Composable
 fun OnBoardingScreen(onContinueClicked: () -> Unit) {
@@ -37,7 +37,7 @@ fun OnBoardingScreen(onContinueClicked: () -> Unit) {
 @Preview(showBackground = true, widthDp = 320, heightDp = 320)
 @Composable
 fun OnBoardingPreview() {
-    JetbankTheme() {
+    DefaultScreen() {
         OnBoardingScreen(onContinueClicked = {}) // Do nothing on click.
     }
 }

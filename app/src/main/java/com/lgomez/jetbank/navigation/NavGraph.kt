@@ -1,11 +1,11 @@
-package com.lgomez.jetbank.ui.navigation
+package com.lgomez.jetbank.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.lgomez.jetbank.ui.screens.LoginForm
-import com.lgomez.jetbank.ui.screens.Main
+import com.lgomez.jetbank.login.ui.screens.LoginForm
+import com.lgomez.jetbank.main.ui.screens.Main
 
 @Composable
 fun NavGraph() {

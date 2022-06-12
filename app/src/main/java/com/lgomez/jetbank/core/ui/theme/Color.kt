@@ -1,4 +1,4 @@
-package com.lgomez.jetbank.ui.theme
+package com.lgomez.jetbank.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
