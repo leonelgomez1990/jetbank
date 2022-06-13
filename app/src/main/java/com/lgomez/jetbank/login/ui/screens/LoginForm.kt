@@ -5,11 +5,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.lgomez.jetbank.core.ui.compose.DefaultScreen
+import com.lgomez.jetbank.login.ui.viewmodels.SignInViewModel
 import com.lgomez.jetbank.login.ui.views.*
+import com.lgomez.jetbank.navigation.NavSections
 
 @Composable
-fun LoginForm(onLogin: () -> Unit) {
+fun LoginForm(navController: NavController) {
+    val signInViewModel = hiltViewModel<SignInViewModel>()
+
     DefaultScreen {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -21,7 +27,11 @@ fun LoginForm(onLogin: () -> Unit) {
 
             UserTextField(value = user, onValueChange = { user = it })
             PasswordTextField(value = pass, onValueChange = { pass = it })
-            LoginButton(loginEnabled, onLogin)
+            LoginButton(loginEnabled) {
+                signInViewModel.signInUser(user, pass)
+                if (signInViewModel.isSuccessfulLoggued())
+                    navController.navigate(NavSections.MAIN.route)
+            }
         }
     }
 }

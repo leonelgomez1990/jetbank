@@ -13,11 +13,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.navigation.NavController
 import com.lgomez.jetbank.main.ui.theme.BlueScreen
 import com.lgomez.jetbank.main.ui.views.CardContent
 
 @Composable
-fun Main() {
+fun Main(navController: NavController) {
     BlueScreen {
         MyApp()
         /*
