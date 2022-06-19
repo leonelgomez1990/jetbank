@@ -31,6 +31,7 @@ class SignInViewModel @Inject constructor(
             when (val result = signInWithEmailAndPasswordUseCase(email, password)) {
                 is MyResult.Failure -> {}
                 is MyResult.Success -> { _isSuccessfulLoggued.value = true }
+                is MyResult.Loading -> {}
             }
         }
 

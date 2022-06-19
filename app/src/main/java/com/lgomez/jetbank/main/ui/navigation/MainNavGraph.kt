@@ -1,4 +1,4 @@
-package com.lgomez.jetbank.navigation
+package com.lgomez.jetbank.main.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
@@ -8,16 +8,13 @@ import com.lgomez.jetbank.login.ui.screens.LoginForm
 import com.lgomez.jetbank.main.ui.screens.Main
 
 @Composable
-fun NavGraph() {
+fun MainNavGraph() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = NavSections.LOGIN.route
+        startDestination = NavSections.MAIN.route
     ) {
 
-        composable(NavSections.LOGIN.route) {
-            LoginForm(navController)
-        }
         composable(NavSections.MAIN.route) {
             Main(navController)
         }
@@ -27,6 +24,5 @@ fun NavGraph() {
 enum class NavSections(
     val route: String
 ) {
-    LOGIN("login"),
     MAIN("main")
 }

@@ -10,7 +10,7 @@ import androidx.navigation.NavController
 import com.lgomez.jetbank.core.ui.compose.DefaultScreen
 import com.lgomez.jetbank.login.ui.viewmodels.SignInViewModel
 import com.lgomez.jetbank.login.ui.views.*
-import com.lgomez.jetbank.navigation.NavSections
+import com.lgomez.jetbank.main.ui.navigation.NavSections
 
 @Composable
 fun LoginForm(navController: NavController) {
