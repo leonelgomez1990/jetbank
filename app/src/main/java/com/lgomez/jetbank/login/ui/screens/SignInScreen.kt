@@ -2,10 +2,13 @@ package com.lgomez.jetbank.login.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.lgomez.jetbank.core.ui.compose.DefaultScreen
@@ -51,7 +54,8 @@ fun SignInForm(signInViewModel: SignInViewModel) {
     DefaultScreen {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically)
+            verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
+            modifier = Modifier.verticalScroll(rememberScrollState())
         ) {
             val loginEnabled = user.isNotEmpty() && pass.isNotEmpty()
 
