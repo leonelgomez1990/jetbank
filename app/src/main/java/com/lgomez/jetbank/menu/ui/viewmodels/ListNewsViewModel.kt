@@ -12,7 +12,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 @HiltViewModel
 class ListNewsViewModel @Inject constructor(
@@ -32,6 +34,8 @@ class ListNewsViewModel @Inject constructor(
 
     private val _news = MutableStateFlow<List<News>>(emptyList())
     val news: StateFlow<List<News>> = _news.asStateFlow()
+
+    private var newsBackup = emptyList<News>()
 
     init {
         refreshNews()
@@ -61,6 +65,7 @@ class ListNewsViewModel @Inject constructor(
                     is MyResult.Success -> {
                         _viewState.emit(MyResult.Success(true))
                         _news.emit(result.data)
+                        newsBackup = result.data
 
                     }
                     is MyResult.Loading -> {
@@ -70,6 +75,22 @@ class ListNewsViewModel @Inject constructor(
             } catch (e: Exception) {
                 _viewState.emit(MyResult.Failure(e))
             }
+        }
+    }
+
+    fun searchedItems(searchedText: String) {
+        if (searchedText.isNotEmpty()) {
+            val resultList = ArrayList<News>()
+            for (data in newsBackup) {
+                if (data.title.lowercase(Locale.getDefault())
+                        .contains(searchedText, ignoreCase = true)
+                ) {
+                    resultList.add(data)
+                }
+            }
+            _news.value = resultList
+        } else {
+            _news.value = newsBackup
         }
     }
 }

@@ -1,10 +1,8 @@
 package com.lgomez.jetbank.menu.ui.navigation
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.lgomez.jetbank.core.ui.views.ShowProgressIndicator
@@ -21,11 +19,19 @@ fun ListNewsState(navController: NavController) {
     val viewState by viewModel.viewState.collectAsState(MyResult.Success(false))
 
     val news by viewModel.news.collectAsState(emptyList())
+    val searchBy = remember { mutableStateOf(TextFieldValue("")) }
 
     ListNewsScreen(
         news = news,
-        onRefreshClick = { viewModel.refreshNews() },
+        onRefreshClick = {
+            searchBy.value = TextFieldValue("")
+            viewModel.refreshNews()
+        },
+        stateValue = searchBy.value,
+        onValueChange = { searchBy.value = it },
+        onCloseClick = { searchBy.value = TextFieldValue("") }
     )
+    viewModel.searchedItems(searchBy.value.text)
 
     when (viewState) {
         is MyResult.Failure -> {
