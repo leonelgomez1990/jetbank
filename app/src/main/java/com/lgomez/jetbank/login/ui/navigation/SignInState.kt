@@ -19,8 +19,12 @@ fun SignInState(navController: NavController) {
                 navController.popBackStack()
                 navController.navigate(route = NavSections.MAIN.route)
             }
-            SignInNavigatorStates.ToPassRecovery -> {}
-            SignInNavigatorStates.ToSignUp -> {}
+            SignInNavigatorStates.ToPassRecovery -> {
+                navController.navigate(route = NavSections.PASSWORD.route)
+            }
+            SignInNavigatorStates.ToSignUp -> {
+                navController.navigate(route = NavSections.REGISTER.route)
+            }
             else -> {}
         }
     }

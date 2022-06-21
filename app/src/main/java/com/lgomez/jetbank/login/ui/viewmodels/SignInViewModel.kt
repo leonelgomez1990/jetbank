@@ -2,14 +2,13 @@ package com.lgomez.jetbank.login.ui.viewmodels
 
 import androidx.lifecycle.*
 import com.lgomez.jetbank.core.utils.MyResult
-import com.lgomez.jetbank.login.ui.domain.AuthCredentials
 import com.lgomez.jetbank.login.ui.navigatorstates.SignInNavigatorStates
 import com.lgomez.jetbank.login.usecases.SignInWithEmailAndPasswordUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,7 +23,9 @@ class SignInViewModel @Inject constructor(
     private val _navigation = MutableStateFlow<SignInNavigatorStates>(SignInNavigatorStates.Here)
     val navigation: StateFlow<SignInNavigatorStates> = _navigation.asStateFlow()
 
-    private val loginCredentialsData = MutableLiveData<AuthCredentials>()
+    private val _viewState =
+        MutableStateFlow<MyResult<Boolean>>(MyResult.Success(false))
+    val viewState: StateFlow<MyResult<Boolean>> = _viewState.asStateFlow()
 
     private val _userName = MutableLiveData("")
     val userName: LiveData<String> = _userName
@@ -43,31 +44,30 @@ class SignInViewModel @Inject constructor(
         _navigation.value = SignInNavigatorStates.ToMenuFeature
     }
 
-    fun setLoginCredentials(loginCredentials: AuthCredentials) {
-        loginCredentialsData.value = loginCredentials
-    }
-
-    val getLoginResult = loginCredentialsData.switchMap { authCredentials ->
-        liveData(Dispatchers.IO) {
-            emit(MyResult.Loading())
-            try {
-                emit(
-                    signInWithEmailAndPasswordUseCase(
-                        authCredentials.username,
-                        authCredentials.password
-                    )
-                )
-            } catch (e: Exception) {
-                emit(MyResult.Failure(e))
-            }
-        }
-    }
-
     fun onUserNameChange(newValue: String) {
         _userName.value = newValue
     }
 
     fun onUserPasswordChange(newValue: String) {
         _userPassword.value = newValue
+    }
+
+    fun doUserLogin(email: String, password: String) {
+        viewModelScope.launch {
+
+            _viewState.emit(MyResult.Loading())
+            when(val result = signInWithEmailAndPasswordUseCase(email, password))
+            {
+                is MyResult.Failure -> {
+                    _viewState.emit(MyResult.Failure(result.exception))
+                }
+                is MyResult.Success -> {
+                    _viewState.emit(MyResult.Success(true))
+                }
+                is MyResult.Loading -> {
+                    _viewState.emit(MyResult.Loading())
+                }
+            }
+        }
     }
 }
