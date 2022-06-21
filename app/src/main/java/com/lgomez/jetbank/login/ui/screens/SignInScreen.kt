@@ -8,39 +8,13 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.lgomez.jetbank.core.ui.compose.DefaultScreen
-import com.lgomez.jetbank.core.ui.views.ShowProgressIndicator
-import com.lgomez.jetbank.core.utils.MyResult
-import com.lgomez.jetbank.core.utils.showMessage
 import com.lgomez.jetbank.login.ui.viewmodels.SignInViewModel
 import com.lgomez.jetbank.login.ui.views.*
 
 @Composable
-fun SignInScreen(viewModel: SignInViewModel) {
-    val viewState by viewModel.viewState.collectAsState(MyResult.Success(false))
-    SignInForm(viewModel)
-    when (viewState) {
-        is MyResult.Failure -> {
-            showMessage(
-                LocalContext.current,
-                (viewState as MyResult.Failure).exception.localizedMessage ?: ""
-            )
-        }
-        is MyResult.Loading -> {
-            ShowProgressIndicator()
-        }
-        is MyResult.Success -> {
-            if ((viewState as MyResult.Success<Boolean>).data) {
-                viewModel.goToMenuFeature()
-            }
-        }
-    }
-}
-
-@Composable
-fun SignInForm(signInViewModel: SignInViewModel) {
+fun SignInScreen(signInViewModel: SignInViewModel) {
     //var user by rememberSaveable { mutableStateOf("") }
     //var pass by rememberSaveable { mutableStateOf("") }
     val user by signInViewModel.userName.observeAsState("")
