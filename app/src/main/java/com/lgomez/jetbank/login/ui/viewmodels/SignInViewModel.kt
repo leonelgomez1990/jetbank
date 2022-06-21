@@ -56,17 +56,10 @@ class SignInViewModel @Inject constructor(
         viewModelScope.launch {
 
             _viewState.emit(MyResult.Loading())
-            when(val result = signInWithEmailAndPasswordUseCase(email, password))
-            {
-                is MyResult.Failure -> {
-                    _viewState.emit(MyResult.Failure(result.exception))
-                }
-                is MyResult.Success -> {
-                    _viewState.emit(MyResult.Success(true))
-                }
-                is MyResult.Loading -> {
-                    _viewState.emit(MyResult.Loading())
-                }
+            try {
+                _viewState.emit(signInWithEmailAndPasswordUseCase(email, password))
+            } catch (e: Exception) {
+                _viewState.emit(MyResult.Failure(e))
             }
         }
     }
