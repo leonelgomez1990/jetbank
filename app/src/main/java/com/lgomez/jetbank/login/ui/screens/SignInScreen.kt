@@ -2,24 +2,31 @@ package com.lgomez.jetbank.login.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.lgomez.jetbank.core.ui.compose.DefaultScreen
-import com.lgomez.jetbank.login.ui.viewmodels.SignInViewModel
 import com.lgomez.jetbank.login.ui.views.*
 
+@Preview(showBackground = true, widthDp = 320)
 @Composable
-fun SignInScreen(signInViewModel: SignInViewModel) {
-    //var user by rememberSaveable { mutableStateOf("") }
-    //var pass by rememberSaveable { mutableStateOf("") }
-    val user by signInViewModel.userName.observeAsState("")
-    val pass by signInViewModel.userPassword.observeAsState("")
+fun SignInPreview() {
+    SignInScreen("", "", {}, {}, {})
+}
 
+@Composable
+fun SignInScreen(
+    user: String,
+    pass: String,
+    onUserNameChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
+    onLoginClick: () -> Unit
+) {
     DefaultScreen {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -28,11 +35,16 @@ fun SignInScreen(signInViewModel: SignInViewModel) {
         ) {
             val loginEnabled = user.isNotEmpty() && pass.isNotEmpty()
 
-            UserTextField(value = user, onValueChange = { signInViewModel.onUserNameChange(it) })
-            PasswordTextField(value = pass, onValueChange = { signInViewModel.onUserPasswordChange(it) })
-            LoginButton(loginEnabled) {
-                signInViewModel.doUserLogin(user, pass)
-            }
+            UserTextField(
+                value = user,
+                onValueChange = onUserNameChange
+            )
+            PasswordTextField(
+                value = pass,
+                onValueChange = onPasswordChange,
+                modifier = Modifier.padding(16.dp)
+            )
+            LoginButton(loginEnabled, onLogin = onLoginClick)
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.lgomez.jetbank.login.ui.navigation
 
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -17,7 +18,18 @@ fun SignInState(navController: NavController) {
     val navigator by viewModel.navigation.collectAsState()
     val viewState by viewModel.viewState.collectAsState(MyResult.Success(false))
 
-    SignInScreen(viewModel)
+    //var user by rememberSaveable { mutableStateOf("") }
+    //var pass by rememberSaveable { mutableStateOf("") }
+    val user by viewModel.userName.observeAsState("")
+    val pass by viewModel.userPassword.observeAsState("")
+
+    SignInScreen(
+        user = user,
+        pass = pass,
+        onUserNameChange = { viewModel.onUserNameChange(it) },
+        onPasswordChange = { viewModel.onUserPasswordChange(it) },
+        onLoginClick = { viewModel.doUserLogin(user, pass) }
+    )
 
     when (viewState) {
         is MyResult.Failure -> {

@@ -3,6 +3,7 @@ package com.lgomez.jetbank.login.ui.views
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.lgomez.jetbank.R
 
@@ -10,10 +11,13 @@ import com.lgomez.jetbank.R
 fun UserTextField(
     value: String,
     onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
-        label = { Text(text = stringResource(id = R.string.log_in_user)) }
+        label = { Text(text = stringResource(id = R.string.log_in_user)) },
+        singleLine = true,
+        modifier = modifier
     )
 }
