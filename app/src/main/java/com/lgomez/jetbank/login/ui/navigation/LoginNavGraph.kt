@@ -10,7 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import com.lgomez.jetbank.main.ui.MainActivity
+import com.lgomez.jetbank.menu.ui.MenuActivity
 
 @Composable
 fun LoginNavGraph() {
@@ -24,7 +24,7 @@ fun LoginNavGraph() {
         loginGraph(navController)
         composable(NavSections.MAIN.route) {
             val context = LocalContext.current
-            context.startActivity(Intent(context, MainActivity::class.java))
+            context.startActivity(Intent(context, MenuActivity::class.java))
             val activity = (LocalContext.current as? Activity)
             activity?.finish()
         }
