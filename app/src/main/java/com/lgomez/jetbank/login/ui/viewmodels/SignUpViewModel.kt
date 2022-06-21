@@ -28,6 +28,10 @@ class SignUpViewModel @Inject constructor(
         MutableStateFlow<MyResult<Boolean>>(MyResult.Success(false))
     val viewState: StateFlow<MyResult<Boolean>> = _viewState.asStateFlow()
 
+    fun navigationReset() {
+        _navigation.value = SignUpNavigatorStates.Here
+    }
+
     fun goToSignIn() {
         _navigation.value = SignUpNavigatorStates.ToSignIn
     }

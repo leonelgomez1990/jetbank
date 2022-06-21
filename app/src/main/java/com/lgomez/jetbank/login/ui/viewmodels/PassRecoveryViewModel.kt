@@ -28,6 +28,10 @@ class PassRecoveryViewModel @Inject constructor(
         MutableStateFlow<MyResult<Boolean>>(MyResult.Success(false))
     val viewState: StateFlow<MyResult<Boolean>> = _viewState.asStateFlow()
 
+    fun navigationReset() {
+        _navigation.value = PassRecoveryNavigatorStates.Here
+    }
+
     fun goToSignIn() {
         _navigation.value = PassRecoveryNavigatorStates.ToSignIn
     }

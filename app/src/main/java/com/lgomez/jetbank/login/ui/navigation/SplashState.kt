@@ -18,6 +18,7 @@ fun SplashState(navController: NavController) {
             SplashNavigatorStates.ToSignIn -> {
                 navController.popBackStack()
                 navController.navigate(route = NavSections.LOGIN_GRAPH.route)
+                viewModel.navigationReset()
             }
             else -> {}
         }

@@ -19,6 +19,10 @@ class SplashViewModel @Inject constructor(
     private val _navigation = MutableStateFlow<SplashNavigatorStates>(SplashNavigatorStates.Here)
     val navigation: StateFlow<SplashNavigatorStates> = _navigation.asStateFlow()
 
+    fun navigationReset() {
+        _navigation.value = SplashNavigatorStates.Here
+    }
+
     fun goToSignIn() {
         _navigation.value = SplashNavigatorStates.ToSignIn
     }

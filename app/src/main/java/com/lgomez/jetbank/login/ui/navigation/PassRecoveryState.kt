@@ -40,9 +40,11 @@ fun PassRecoveryState(navController: NavController) {
         when (navigator) {
             PassRecoveryNavigatorStates.GoBack -> {
                 navController.navigateUp()
+                viewModel.navigationReset()
             }
             PassRecoveryNavigatorStates.ToSignIn -> {
                 navController.navigate(route = NavSections.REGISTER.route)
+                viewModel.navigationReset()
             }
             else -> {}
         }

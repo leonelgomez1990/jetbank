@@ -40,9 +40,11 @@ fun SignUpState(navController: NavController) {
         when (navigator) {
             SignUpNavigatorStates.GoBack -> {
                 navController.navigateUp()
+                viewModel.navigationReset()
             }
             SignUpNavigatorStates.ToSignIn -> {
                 navController.navigate(route = NavSections.USERNAME.route)
+                viewModel.navigationReset()
             }
             else -> {}
         }

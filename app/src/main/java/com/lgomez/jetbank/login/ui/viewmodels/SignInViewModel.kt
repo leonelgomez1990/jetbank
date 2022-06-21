@@ -33,7 +33,8 @@ class SignInViewModel @Inject constructor(
     private val _userPassword = MutableLiveData("")
     val userPassword: LiveData<String> = _userPassword
 
-    init {
+    fun navigationReset() {
+        _navigation.value = SignInNavigatorStates.Here
     }
 
     fun goToSignUp() {

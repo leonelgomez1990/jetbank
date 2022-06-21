@@ -28,7 +28,8 @@ fun SignInState(navController: NavController) {
         pass = pass,
         onUserNameChange = { viewModel.onUserNameChange(it) },
         onPasswordChange = { viewModel.onUserPasswordChange(it) },
-        onLoginClick = { viewModel.doUserLogin(user, pass) }
+        onLoginClick = { viewModel.doUserLogin(user, pass) },
+        onRegisterClick = { viewModel.goToSignUp() }
     )
 
     when (viewState) {
@@ -53,12 +54,15 @@ fun SignInState(navController: NavController) {
             SignInNavigatorStates.ToMenuFeature -> {
                 navController.popBackStack()
                 navController.navigate(route = NavSections.MAIN.route)
+                viewModel.navigationReset()
             }
             SignInNavigatorStates.ToPassRecovery -> {
                 navController.navigate(route = NavSections.PASSWORD.route)
+                viewModel.navigationReset()
             }
             SignInNavigatorStates.ToSignUp -> {
                 navController.navigate(route = NavSections.REGISTER.route)
+                viewModel.navigationReset()
             }
             else -> {}
         }
