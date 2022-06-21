@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.lgomez.jetbank.core.ui.compose.DefaultScreen
-import com.lgomez.jetbank.login.ui.views.*
+import com.lgomez.jetbank.login.ui.widgets.*
 
 @Preview(showBackground = true, widthDp = 320)
 @Composable

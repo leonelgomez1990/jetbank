@@ -7,7 +7,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.lgomez.jetbank.core.ui.compose.DefaultScreen
 import com.lgomez.jetbank.login.ui.viewmodels.SignUpViewModel
-import com.lgomez.jetbank.login.ui.views.*
 
 @Composable
 fun SignUpScreen(SignUpViewModel: SignUpViewModel) {

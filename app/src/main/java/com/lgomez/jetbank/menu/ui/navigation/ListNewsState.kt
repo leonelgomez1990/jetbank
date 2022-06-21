@@ -54,7 +54,7 @@ fun ListNewsState(navController: NavController) {
     LaunchedEffect(navigator) {
         when (navigator) {
             is ListNewsNavigatorStates.ToDetailNews -> {
-                navController.navigate(route = "${NavSections.DETAIL.route}/${(navigator as ListNewsNavigatorStates.ToDetailNews).new.uid}")
+                navController.navigate(route = "${NavSections.DETAIL.route}/${(navigator as ListNewsNavigatorStates.ToDetailNews).new.title}")
                 viewModel.navigationReset()
             }
             is ListNewsNavigatorStates.ToAddNew -> {

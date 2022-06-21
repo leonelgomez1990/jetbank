@@ -1,4 +1,4 @@
-package com.lgomez.jetbank.login.ui.views
+package com.lgomez.jetbank.login.ui.widgets
 
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text

@@ -1,4 +1,4 @@
-package com.lgomez.jetbank.login.ui.views
+package com.lgomez.jetbank.login.ui.widgets
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D

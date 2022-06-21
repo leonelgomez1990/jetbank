@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.lgomez.jetbank.core.ui.compose.DefaultScreen
 import com.lgomez.jetbank.menu.ui.models.NewUI
-import com.lgomez.jetbank.menu.ui.views.*
+import com.lgomez.jetbank.menu.ui.widgets.*
 
 @Preview(showBackground = true, widthDp = 320)
 @Composable

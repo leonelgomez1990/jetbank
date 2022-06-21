@@ -1,4 +1,4 @@
-package com.lgomez.jetbank.login.ui.views
+package com.lgomez.jetbank.login.ui.widgets
 
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape

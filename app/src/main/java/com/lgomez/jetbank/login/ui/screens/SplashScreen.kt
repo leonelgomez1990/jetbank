@@ -11,7 +11,7 @@ import androidx.compose.ui.res.painterResource
 import com.lgomez.jetbank.R
 import com.lgomez.jetbank.core.ui.compose.DefaultScreen
 import com.lgomez.jetbank.login.ui.viewmodels.SplashViewModel
-import com.lgomez.jetbank.login.ui.views.SplashView
+import com.lgomez.jetbank.login.ui.widgets.SplashView
 import kotlinx.coroutines.delay
 
 @Composable
