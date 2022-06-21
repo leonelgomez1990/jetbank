@@ -1,9 +1,12 @@
 package com.lgomez.jetbank.menu.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.lgomez.jetbank.menu.ui.models.NewUI
 
 @Composable
 fun MenuNavGraph() {
@@ -17,13 +20,18 @@ fun MenuNavGraph() {
             ListNewsState(navController)
         }
         composable(NavSections.ADD.route) {
-            //AddNewsState(navController)
+            AddNewsState(navController)
         }
         composable(NavSections.EDIT.route) {
-            //EditNewsState(navController)
+            EditNewsState(navController)
         }
-        composable(NavSections.DETAIL.route) {
-            //DetailNewsState(navController)
+        composable(NavSections.DETAIL.route + "/{new}",
+            arguments = listOf(navArgument("new") {
+                type = NavType.StringType
+            })
+        ) { backStackEntry ->
+            val new: String = backStackEntry.arguments?.getString("new") ?: ""
+            DetailNewsState(navController, new)
         }
     }
 }

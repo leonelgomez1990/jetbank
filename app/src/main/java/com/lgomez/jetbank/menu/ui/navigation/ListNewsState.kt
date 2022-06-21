@@ -29,7 +29,9 @@ fun ListNewsState(navController: NavController) {
         },
         stateValue = searchBy.value,
         onValueChange = { searchBy.value = it },
-        onCloseClick = { searchBy.value = TextFieldValue("") }
+        onCloseClick = { searchBy.value = TextFieldValue("") },
+        onAddClick = { viewModel.goToAddNews() },
+        onDetailClick = { viewModel.goToDetailNews(it) }
     )
     viewModel.searchedItems(searchBy.value.text)
 
@@ -52,8 +54,7 @@ fun ListNewsState(navController: NavController) {
     LaunchedEffect(navigator) {
         when (navigator) {
             is ListNewsNavigatorStates.ToDetailNews -> {
-                navController.popBackStack()
-                navController.navigate(route = "${NavSections.DETAIL.route}/${(navigator as ListNewsNavigatorStates.ToDetailNews).new}")
+                navController.navigate(route = "${NavSections.DETAIL.route}/${(navigator as ListNewsNavigatorStates.ToDetailNews).new.uid}")
                 viewModel.navigationReset()
             }
             is ListNewsNavigatorStates.ToAddNew -> {

@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,31 +19,33 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.lgomez.jetbank.core.ui.compose.DefaultScreen
-import com.lgomez.jetbank.menu.domain.News
-import com.lgomez.jetbank.menu.ui.views.SearchViewTextField
+import com.lgomez.jetbank.menu.ui.models.NewUI
+import com.lgomez.jetbank.menu.ui.views.*
 
-/*
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun ListNewsPreview() {
     ListNewsScreen(
         listOf(
-            News(
-                title = "hola",
+            NewUI(
+                uid = "0",
+                title = "título",
+                content = "descripción",
                 urlToImage = "https://picsum.photos/200/300"
             )
-        ), {}, { }
+        ), {}, TextFieldValue(""), {}, {}, {}, {}
     )
 }
-*/
 
 @Composable
 fun ListNewsScreen(
-    news: List<News>,
+    news: List<NewUI>,
     onRefreshClick: () -> Unit,
     stateValue: TextFieldValue,
     onValueChange: (TextFieldValue) -> Unit,
     onCloseClick: () -> Unit,
+    onAddClick: () -> Unit,
+    onDetailClick: (NewUI) -> Unit
 ) {
     DefaultScreen {
         Scaffold(
@@ -58,7 +61,14 @@ fun ListNewsScreen(
                         }
                     }
                 )
-            }
+            },
+            floatingActionButton = {
+                FloatingActionButton(onClick = onAddClick) {
+                    Icon(imageVector = Icons.Filled.Add, contentDescription = "Crear")
+                }
+            },
+            floatingActionButtonPosition = FabPosition.End,
+            isFloatingActionButtonDocked = true
         ) {
             Column(
                 Modifier
@@ -78,7 +88,7 @@ fun ListNewsScreen(
                             modifier = Modifier
                                 .padding(8.dp)
                                 .fillMaxWidth()
-                                .clickable { },
+                                .clickable { onDetailClick(new) },
                         ) {
                             Column {
                                 AsyncImage(
@@ -91,10 +101,9 @@ fun ListNewsScreen(
                                 )
                                 Column(Modifier.padding(8.dp)) {
                                     Text(new.title, fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                                    Text(new.content ?: "", maxLines = 3)
+                                    Text(new.content, maxLines = 3)
                                 }
                             }
-
                         }
                     }
                 }
