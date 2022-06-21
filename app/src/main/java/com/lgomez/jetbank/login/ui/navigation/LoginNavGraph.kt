@@ -51,10 +51,10 @@ fun NavGraphBuilder.loginGraph(navController: NavController) {
             SignInState(navController)
         }
         composable(NavSections.PASSWORD.route) {
-
+            PassRecoveryState(navController)
         }
         composable(NavSections.REGISTER.route) {
-
+            SignUpState(navController)
         }
     }
 }
