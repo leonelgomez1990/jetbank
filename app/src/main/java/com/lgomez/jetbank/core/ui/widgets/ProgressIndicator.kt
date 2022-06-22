@@ -1,4 +1,4 @@
-package com.lgomez.jetbank.core.ui.views
+package com.lgomez.jetbank.core.ui.widgets
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

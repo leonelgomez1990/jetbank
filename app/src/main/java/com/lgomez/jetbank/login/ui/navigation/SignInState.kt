@@ -5,9 +5,9 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.lgomez.jetbank.core.ui.views.ShowProgressIndicator
+import com.lgomez.jetbank.core.ui.widgets.ShowProgressIndicator
 import com.lgomez.jetbank.core.utils.MyResult
-import com.lgomez.jetbank.core.utils.showMessage
+import com.lgomez.jetbank.core.ui.showMessage
 import com.lgomez.jetbank.login.ui.navigatorstates.SignInNavigatorStates
 import com.lgomez.jetbank.login.ui.screens.SignInScreen
 import com.lgomez.jetbank.login.ui.viewmodels.SignInViewModel

@@ -4,9 +4,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.lgomez.jetbank.core.ui.views.ShowProgressIndicator
+import com.lgomez.jetbank.core.ui.widgets.ShowProgressIndicator
 import com.lgomez.jetbank.core.utils.MyResult
-import com.lgomez.jetbank.core.utils.showMessage
+import com.lgomez.jetbank.core.ui.showMessage
 import com.lgomez.jetbank.login.ui.navigatorstates.PassRecoveryNavigatorStates
 import com.lgomez.jetbank.login.ui.screens.PassRecoveryScreen
 import com.lgomez.jetbank.login.ui.viewmodels.PassRecoveryViewModel
