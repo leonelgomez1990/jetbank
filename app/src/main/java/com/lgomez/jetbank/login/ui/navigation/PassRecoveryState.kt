@@ -17,7 +17,7 @@ fun PassRecoveryState(navController: NavController) {
     val navigator by viewModel.navigation.collectAsState()
     val viewState by viewModel.viewState.collectAsState(MyResult.Success(false))
 
-    PassRecoveryScreen(viewModel)
+    PassRecoveryScreen()
 
     when (viewState) {
         is MyResult.Failure -> {

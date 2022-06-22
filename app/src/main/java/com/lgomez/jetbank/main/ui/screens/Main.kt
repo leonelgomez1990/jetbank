@@ -15,7 +15,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.navigation.NavController
 import com.lgomez.jetbank.main.ui.theme.BlueScreen
-import com.lgomez.jetbank.main.ui.views.CardContent
+import com.lgomez.jetbank.main.ui.widgets.CardContent
 
 @Composable
 fun Main(navController: NavController) {

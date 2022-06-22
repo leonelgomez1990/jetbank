@@ -17,7 +17,7 @@ fun SignUpState(navController: NavController) {
     val navigator by viewModel.navigation.collectAsState()
     val viewState by viewModel.viewState.collectAsState(MyResult.Success(false))
 
-    SignUpScreen(viewModel)
+    SignUpScreen()
 
     when (viewState) {
         is MyResult.Failure -> {

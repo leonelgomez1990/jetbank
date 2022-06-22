@@ -1,5 +1,6 @@
 package com.lgomez.jetbank.login.ui.screens
 
+import android.content.res.Configuration
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
@@ -8,14 +9,35 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import com.lgomez.jetbank.R
 import com.lgomez.jetbank.core.ui.compose.DefaultScreen
-import com.lgomez.jetbank.login.ui.viewmodels.SplashViewModel
 import com.lgomez.jetbank.login.ui.widgets.SplashView
 import kotlinx.coroutines.delay
 
+@Preview(
+    showBackground = true,
+    widthDp = 320,
+    name = "LightPreview"
+)
 @Composable
-fun SplashScreen(viewModel: SplashViewModel) {
+fun SplashLightPreview() {
+    SplashScreen {}
+}
+
+@Preview(
+    showBackground = true,
+    widthDp = 320,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "DarkPreview"
+)
+@Composable
+fun SplashDarkPreview() {
+    SplashScreen {}
+}
+
+@Composable
+fun SplashScreen(onDelayFinish: () -> Unit) {
     val scaleAnimation: Animatable<Float, AnimationVector1D> =
         remember { Animatable(initialValue = 0f) }
 
@@ -30,8 +52,8 @@ fun SplashScreen(viewModel: SplashViewModel) {
             )
         )
 
-        delay(timeMillis = 3000L)
-        viewModel.goToSignIn()
+        delay(timeMillis = 2000L)
+        onDelayFinish()
     }
 
     DefaultScreen {

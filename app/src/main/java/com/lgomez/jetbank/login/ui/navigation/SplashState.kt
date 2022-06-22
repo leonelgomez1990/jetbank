@@ -12,7 +12,8 @@ fun SplashState(navController: NavController) {
     val viewModel = hiltViewModel<SplashViewModel>()
     val navigator by viewModel.navigation.collectAsState()
 
-    SplashScreen(viewModel)
+    SplashScreen(onDelayFinish = { viewModel.goToSignIn() })
+
     LaunchedEffect(navigator) {
         when (navigator) {
             SplashNavigatorStates.ToSignIn -> {

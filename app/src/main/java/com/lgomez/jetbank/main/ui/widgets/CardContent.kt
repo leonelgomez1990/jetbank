@@ -1,4 +1,4 @@
-package com.lgomez.jetbank.main.ui.views
+package com.lgomez.jetbank.main.ui.widgets
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring

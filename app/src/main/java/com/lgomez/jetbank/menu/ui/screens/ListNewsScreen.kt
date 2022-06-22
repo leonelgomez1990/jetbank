@@ -1,5 +1,6 @@
 package com.lgomez.jetbank.menu.ui.screens
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,18 +18,37 @@ import com.lgomez.jetbank.core.ui.compose.DefaultScreen
 import com.lgomez.jetbank.menu.ui.models.NewUI
 import com.lgomez.jetbank.menu.ui.widgets.*
 
-@Preview(showBackground = true, widthDp = 320)
+val data = listOf(
+    NewUI(
+        uid = "0",
+        title = "título",
+        content = "descripción",
+        urlToImage = "https://picsum.photos/200/300"
+    )
+)
+
+@Preview(
+    showBackground = true,
+    widthDp = 320,
+    name = "LightPreview"
+)
 @Composable
-fun ListNewsPreview() {
+fun LightPreview() {
     ListNewsScreen(
-        listOf(
-            NewUI(
-                uid = "0",
-                title = "título",
-                content = "descripción",
-                urlToImage = "https://picsum.photos/200/300"
-            )
-        ), {}, TextFieldValue(""), {}, {}, {}, {}
+        data, {}, TextFieldValue(""), {}, {}, {}, {}
+    )
+}
+
+@Preview(
+    showBackground = true,
+    widthDp = 320,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "DarkPreview"
+)
+@Composable
+fun DarkPreview() {
+    ListNewsScreen(
+        data, {}, TextFieldValue(""), {}, {}, {}, {}
     )
 }
 

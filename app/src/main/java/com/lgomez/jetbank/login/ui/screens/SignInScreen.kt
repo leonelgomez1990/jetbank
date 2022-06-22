@@ -1,5 +1,6 @@
 package com.lgomez.jetbank.login.ui.screens
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,9 +16,24 @@ import androidx.compose.ui.unit.dp
 import com.lgomez.jetbank.core.ui.compose.DefaultScreen
 import com.lgomez.jetbank.login.ui.widgets.*
 
-@Preview(showBackground = true, widthDp = 320)
+@Preview(
+    showBackground = true,
+    widthDp = 320,
+    name = "LightPreview"
+)
 @Composable
-fun SignInPreview() {
+fun SignInLightPreview() {
+    SignInScreen("", "", {}, {}, {}, {})
+}
+
+@Preview(
+    showBackground = true,
+    widthDp = 320,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "DarkPreview"
+)
+@Composable
+fun SignInDarkPreview() {
     SignInScreen("", "", {}, {}, {}, {})
 }
 
@@ -49,15 +65,17 @@ fun SignInScreen(
             )
             LoginButton(loginEnabled, onLogin = onLoginClick)
             Spacer(modifier = Modifier.padding(10.dp))
-            Box(modifier = Modifier
-                .background(Color.Gray)
-                .padding(10.dp)
-                .clickable(onClick = onRegisterClick)) {
+            Box(
+                modifier = Modifier
+                    .background(Color.Gray)
+                    .padding(10.dp)
+                    .clickable(onClick = onRegisterClick)
+            ) {
                 Text(
                     text = "¿No tenés una cuenta? Registrate",
                     color = Color.White,
 
-                )
+                    )
             }
         }
     }
