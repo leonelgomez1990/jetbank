@@ -8,6 +8,7 @@ import com.lgomez.jetbank.login.framework.UserDataSource
 import com.lgomez.jetbank.login.usecases.CreateUserWithEmailAndPasswordUseCase
 import com.lgomez.jetbank.login.usecases.SendPasswordResetEmailUseCase
 import com.lgomez.jetbank.login.usecases.SignInWithEmailAndPasswordUseCase
+import com.lgomez.jetbank.login.usecases.ValidateSignInFieldsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,4 +41,7 @@ object LoginModule {
     fun provideSendPasswordResetEmailUseCase(userRepository: UserRepository): SendPasswordResetEmailUseCase =
         SendPasswordResetEmailUseCase(userRepository)
 
+    @Provides
+    fun provideValidateSignInFieldsUseCase(): ValidateSignInFieldsUseCase =
+        ValidateSignInFieldsUseCase()
 }

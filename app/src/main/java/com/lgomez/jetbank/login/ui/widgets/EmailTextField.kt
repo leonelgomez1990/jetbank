@@ -2,22 +2,22 @@ package com.lgomez.jetbank.login.ui.widgets
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Password
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Error
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.lgomez.jetbank.R
 
 @Composable
-fun PasswordTextField(
+fun EmailTextField(
     modifier: Modifier = Modifier,
     value: String,
     errorValue: String = "",
@@ -26,27 +26,18 @@ fun PasswordTextField(
     var isError by rememberSaveable { mutableStateOf(false) }
     isError = errorValue != ""
 
-    var passVisible by remember { mutableStateOf(false) }
     Column {
         OutlinedTextField(
             value = value,
             onValueChange = onValueChange,
-            label = { Text(text = stringResource(id = R.string.log_in_password)) },
             leadingIcon = {
-                Icon(Icons.Default.Password, "password")
+                Icon(Icons.Default.Email, "email")
             },
-            visualTransformation = if (passVisible) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
-                IconToggleButton(
-                    checked = passVisible,
-                    onCheckedChange = { passVisible = it }
-                ) {
-                    val icon =
-                        if (passVisible) Icons.Default.VisibilityOff else Icons.Default.Visibility
-                    Icon(imageVector = icon, contentDescription = null)
-
-                }
+                if (isError)
+                    Icon(Icons.Filled.Error, "error", tint = MaterialTheme.colors.error)
             },
+            label = { Text(text = stringResource(id = R.string.log_in_user)) },
             singleLine = true,
             isError = isError,
             modifier = modifier

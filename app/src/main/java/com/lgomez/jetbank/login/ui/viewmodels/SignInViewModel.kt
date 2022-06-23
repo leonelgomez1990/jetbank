@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.lgomez.jetbank.core.utils.MyResult
 import com.lgomez.jetbank.login.ui.navigatorstates.SignInNavigatorStates
 import com.lgomez.jetbank.login.usecases.SignInWithEmailAndPasswordUseCase
+import com.lgomez.jetbank.login.usecases.ValidateSignInFieldsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,6 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     val signInWithEmailAndPasswordUseCase: SignInWithEmailAndPasswordUseCase,
+    private val validateSignInFieldsUseCase: ValidateSignInFieldsUseCase,
 ) : ViewModel() {
 
     companion object {
@@ -27,11 +29,11 @@ class SignInViewModel @Inject constructor(
         MutableStateFlow<MyResult<Boolean>>(MyResult.Success(false))
     val viewState: StateFlow<MyResult<Boolean>> = _viewState.asStateFlow()
 
-    private val _userName = MutableLiveData("")
-    val userName: LiveData<String> = _userName
+    private val _emailError = MutableLiveData(String())
+    val emailError: LiveData<String> = _emailError
 
-    private val _userPassword = MutableLiveData("")
-    val userPassword: LiveData<String> = _userPassword
+    private val _passwordError = MutableLiveData(String())
+    val passwordError: LiveData<String> = _passwordError
 
     fun navigationReset() {
         _navigation.value = SignInNavigatorStates.Here
@@ -45,12 +47,12 @@ class SignInViewModel @Inject constructor(
         _navigation.value = SignInNavigatorStates.ToMenuFeature
     }
 
-    fun onUserNameChange(newValue: String) {
-        _userName.value = newValue
+    fun onEmailValidation(email: String) {
+        _emailError.value = validateSignInFieldsUseCase.validateEmail(email)
     }
 
-    fun onUserPasswordChange(newValue: String) {
-        _userPassword.value = newValue
+    fun onPasswordValidation(password: String) {
+        _passwordError.value = validateSignInFieldsUseCase.validatePassword(password)
     }
 
     fun doUserLogin(email: String, password: String) {
