@@ -99,8 +99,9 @@ fun ListNewsScreen(
                 LazyColumn {
                     items(news) { new ->
                         key(new.uid) {
-                            CardNewItem(item = new, onDetailClick)
+                            CardNewItem(item = new, onClick = onDetailClick)
                         }
+                        Divider()
                     }
                 }
             }

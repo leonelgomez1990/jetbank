@@ -13,8 +13,7 @@ import com.lgomez.jetbank.menu.ui.screens.ListNewsScreen
 import com.lgomez.jetbank.menu.ui.viewmodels.ListNewsViewModel
 
 @Composable
-fun ListNewsState(navController: NavController) {
-    val viewModel = hiltViewModel<ListNewsViewModel>()
+fun ListNewsState(navController: NavController, viewModel: ListNewsViewModel) {
     val navigator by viewModel.navigation.collectAsState()
     val viewState by viewModel.viewState.collectAsState(MyResult.Success(false))
 
@@ -54,7 +53,7 @@ fun ListNewsState(navController: NavController) {
     LaunchedEffect(navigator) {
         when (navigator) {
             is ListNewsNavigatorStates.ToDetailNews -> {
-                navController.navigate(route = "${NavSections.DETAIL.route}/${(navigator as ListNewsNavigatorStates.ToDetailNews).new.title}")
+                navController.navigate(route = "${NavSections.DETAIL.route}/${(navigator as ListNewsNavigatorStates.ToDetailNews).new.uid}")
                 viewModel.navigationReset()
             }
             is ListNewsNavigatorStates.ToAddNew -> {

@@ -94,4 +94,6 @@ class ListNewsViewModel @Inject constructor(
             _news.value = newsBackup
         }
     }
+
+    fun getNew(uid: String): NewUI? = newsBackup.find { it.uid == uid }
 }
