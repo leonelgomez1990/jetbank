@@ -19,17 +19,17 @@ fun SignInState(navController: NavController) {
     val navigator by viewModel.navigation.collectAsState()
     val viewState by viewModel.viewState.collectAsState(MyResult.Success(false))
 
-    val emailError by viewModel.emailError.observeAsState("")
-    val passwordError by viewModel.passwordError.observeAsState("")
+    var emailError by remember { mutableStateOf("") }
+    var passwordError by remember { mutableStateOf("") }
 
     SignInScreen(
         emailError = emailError,
         passwordError = passwordError,
         onUserNameChange = {
-            viewModel.onEmailValidation(it)
+            emailError = viewModel.onEmailValidation(it)
         },
         onPasswordChange = {
-            viewModel.onPasswordValidation(it)
+            passwordError = viewModel.onPasswordValidation(it)
         },
         onLoginClick = { (user, pass) -> viewModel.doUserLogin(user, pass) },
         onRegisterClick = { viewModel.goToSignUp() }

@@ -29,12 +29,6 @@ class SignInViewModel @Inject constructor(
         MutableStateFlow<MyResult<Boolean>>(MyResult.Success(false))
     val viewState: StateFlow<MyResult<Boolean>> = _viewState.asStateFlow()
 
-    private val _emailError = MutableLiveData(String())
-    val emailError: LiveData<String> = _emailError
-
-    private val _passwordError = MutableLiveData(String())
-    val passwordError: LiveData<String> = _passwordError
-
     fun navigationReset() {
         _navigation.value = SignInNavigatorStates.Here
     }
@@ -47,13 +41,11 @@ class SignInViewModel @Inject constructor(
         _navigation.value = SignInNavigatorStates.ToMenuFeature
     }
 
-    fun onEmailValidation(email: String) {
-        _emailError.value = validateSignInFieldsUseCase.validateEmail(email)
-    }
+    fun onEmailValidation(email: String): String =
+        validateSignInFieldsUseCase.validateEmail(email)
 
-    fun onPasswordValidation(password: String) {
-        _passwordError.value = validateSignInFieldsUseCase.validatePassword(password)
-    }
+    fun onPasswordValidation(password: String): String =
+        validateSignInFieldsUseCase.validatePassword(password)
 
     fun doUserLogin(email: String, password: String) {
         viewModelScope.launch {
