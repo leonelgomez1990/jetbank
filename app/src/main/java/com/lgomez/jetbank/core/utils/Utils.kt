@@ -1,5 +1,6 @@
 package com.lgomez.jetbank.core.utils
 
+import android.text.Html
 import androidx.core.util.PatternsCompat
 
 /**
@@ -20,3 +21,15 @@ fun String.isPasswordValid(): Boolean =
     PatternsLogIn.PASSWORD
         .matcher(this)
         .matches()
+
+
+fun String?.convertHtmlToString(): String {
+    if (this == null)
+        return ""
+    //As fromHtml is deprecated, whe need to ask for Build version to includes the new int parameter
+    return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+        Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY).toString()
+    } else {
+        Html.fromHtml(this).toString()
+    }
+}
